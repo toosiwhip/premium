@@ -1,0 +1,32 @@
+local approved_hwids = {
+  "52998aef341e796f5f75aa76eafffd922e698e77841ce52d17050edfaa18c6d5827a1cfe351f484786cbc4273f7c761ae6cab823bdf104b3b9a69609f658d070",
+  "e058356daa99789eb64900b93ff3f04a85edcfc752c57a25cb29b59d9cd04c15b3ea2949a1cc235a3bb7020867b2e09a76491f6f53e891007471bf827859f853",
+
+}
+
+local request = http_request or request or HttpPost or syn.request
+
+local plr = game:GetService("Players").LocalPlayer
+
+-- Function to check if the current HWID is approved
+local function is_hwid_approved()
+  -- Get the current HWID using a system command
+  local hwid = request({Url = "https://hwid-executor.vercel.app/api/hwid?one=true"}).Body
+  if hwid:lower():find("failed to detect") then return plr:Kick() end
+  if not hwid then return plr:Kick() end
+
+  -- Check if the current HWID is in the list of approved HWIDs
+  for i = 1, #approved_hwids do
+    if hwid:find(approved_hwids[i]) then
+      return true
+    end
+  end
+
+  -- If the current HWID is not in the list of approved HWIDs, return false
+  return false
+end
+
+-- Check if the current HWID is approved
+if is_hwid_approved() then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/toosiwhip/snake-hub/main/anime%20adventures1.txt"))()
+end
