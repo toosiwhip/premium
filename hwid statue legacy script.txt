@@ -1,5 +1,5 @@
 local approved_hwids = {
-  "",
+  "51a44fb51297d0af969ddd197b3e464bd629e4cea8e3ba3d622620d8d7a24f83d4da74b6c69088498e7557a8ae9f849609fce126d543552c09b914fcc621cee9",
   "HWID2",
 }
 
